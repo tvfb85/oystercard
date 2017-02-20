@@ -12,6 +12,10 @@ LIMIT = 90
     @balance += (money)
   end
 
+  def deduct(money)
+    @balance -= money
+  end
+
 attr_reader :balance
 
 end

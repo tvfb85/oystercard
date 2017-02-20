@@ -17,6 +17,12 @@ describe Oystercard do
     end
   end
 
+  describe "deducting money from card balance"do
+    it "decreases the card balance" do
+      expect { card.deduct 5 }.to change{ card.balance }.by -5
+    end
+  end
+
   describe "set maximum balance" do
     it "checks that no more than £90 can be added" do
       maximum_balance = Oystercard::LIMIT
