@@ -49,6 +49,7 @@ describe Oystercard do
 
   describe "#touch out" do
     it "allows the card to be touched-out" do
+      card.touch_in
       expect(card.touch_out).to be false
       #expect{ card.touch_in }.to change{ card.in_journey? }.to true
     end
