@@ -13,8 +13,16 @@ describe Oystercard do
 
   describe "adding money to card balance"do
     it "increases the card balance" do
-      expect(card).to respond_to (:top_up)
       expect { card.top_up 5 }.to change{ card.balance }.by 5
     end
   end
+
+  describe "set maximum balance" do
+    it "checks that no more than £90 can be added" do
+      maximum_balance = Oystercard::LIMIT
+      message = "Maximum balance of £#{maximum_balance} exceeded"
+      expect { card.top_up maximum_balance + 1 }.to raise_error message
+    end
+  end
+
 end
