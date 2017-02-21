@@ -1,36 +1,43 @@
 class Oystercard
-
-LIMIT = 90
+MIN_BALANCE = 1
+MAX_BALANCE = 90
+TRAVEL_COST = 1
+attr_reader :balance, :entry_station
 
   def initialize(balance = 0)
     @balance = balance
-    @in_journey = false
   end
 
-  def top_up(money)
-    message = "Maximum balance of £#{LIMIT} exceeded"
-    raise message if (balance + money > LIMIT )
-    @balance += (money)
+  def top_up(amount)
+    message = "Maximum balance of £#{MAX_BALANCE} exceeded"
+    raise message if (balance + amount > MAX_BALANCE )
+    @balance += (amount)
   end
 
-  def deduct(money)
-    @balance -= money
+  def in_journey?
+    !!@entry_station
   end
 
-  def touch_in
+  def touch_in(entry_station = nil)
     raise "Card already in journey" if in_journey?
-    @in_journey = true
+    raise "Insufficient funds on card" unless sufficient_funds?
+    @entry_station = entry_station
   end
 
   def touch_out
     raise "Card is not in a journey" unless in_journey?
-    @in_journey = false
+    deduct(TRAVEL_COST)
+    @entry_station = nil
   end
 
-  def in_journey?
-    @in_journey
+private
+
+  def deduct(amount)
+    @balance -= amount
   end
 
-attr_reader :balance
+  def sufficient_funds?
+    @balance >= MIN_BALANCE
+  end
 
 end
