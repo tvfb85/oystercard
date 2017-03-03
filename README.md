@@ -1,4 +1,4 @@
-# Oyster card Challenge
+# Oystercard Challenge
 
 ## About this project
 The goal of this Ruby project was to build a complex program which replicated the TfL Oyster card system. Using TDD, the code has been developed with object-oriented design principles in mind.
@@ -62,3 +62,37 @@ This project was an opportunity to develop skills in the following areas:
 - Delegation
 - Single Responsibility Principle
 - Law of Demeter
+
+## Usage
+
+To create a new Oystercard:
+
+```
+2.3.3 :002 > oystercard = Oystercard.new
+ => #<Oystercard:0x007ff6ec170350 @balance=0, @journeylog=#<Journeylog:0x007ff6ec170328 @journey_class=Journey, @history=[]>>
+ ```
+
+ To top-up the Oystercard:
+
+ ```
+ 2.3.3 :003 > oystercard.top_up(25)
+ ```
+
+ To touch-in at a station, pass in a new instance of a Station object, using the station name and zone as parameters:
+
+ ```
+ 2.3.3 :005 > oystercard.touch_in(Station.new('Richmond', 4))
+ => #<Journey:0x007ff6ec149f98 @entry_station=#<Station:0x007ff6ec14a060 @name="Richmond", @zone=4>>
+ ```
+
+ Similarly, to touch out at a station, call the following:
+
+ ```
+ 2.3.3 :006 > oystercard.touch_out(Station.new('Brixton', 2))
+ ```
+
+ The journey will be logged on the Oystercard instance as:
+
+ ```
+ #<Oystercard:0x007ff6ec170350 @balance=23, @journeylog=#<Journeylog:0x007ff6ec170328 @journey_class=Journey, @history=[#<Journey:0x007ff6ec149f98 @entry_station=#<Station:0x007ff6ec14a060 @name="Richmond", @zone=4>, @exit_station=#<Station:0x007ff6ec130f48 @name="Brixton", @zone=2>, @fare=2>], @current_journey=nil, @fare=2>>
+ ```
